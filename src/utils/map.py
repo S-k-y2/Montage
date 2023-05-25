@@ -111,6 +111,6 @@ def write_map(id_harness_map):
   for key in id_harness_map:
     id_harness_map[key] = list(id_harness_map[key])
 
-  map_path = 'fuzz/id_map.py'
+  map_path = '/content/drive/MyDrive/Montage/src/fuzz/id_map.py'
   content = 'ID_HARNESS_MAP = {}'.format(id_harness_map)
   write(map_path, content, 'w')
