@@ -62,11 +62,11 @@ def reshape_hidden(hidden, dim, expand=True):
                        hidden))
   return hidden
 
-class TransformerLSTM(nn.Module):
+class LSTM(nn.Module):
   def __init__(self, vocab_size, embedding_dim,
                type_mask, loss_function, batch_per_gpu):
     
-    super(TransformerLSTM, self).__init__()
+    super(LSTM, self).__init__()
     self.embeddings = nn.Embedding(vocab_size, embedding_dim)
 
     # Using default dropout_rate=0.0 for the Transformer
