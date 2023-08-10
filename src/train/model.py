@@ -62,9 +62,29 @@ def reshape_hidden(hidden, dim, expand=True):
                        hidden))
   return hidden
 
-class LSTM(nn.Module):
+class TransformerLSTM(nn.Module):
   def __init__(self, vocab_size, embedding_dim,
                type_mask, loss_function, batch_per_gpu):
+    
+    super(TransformerLSTM, self).__init__()
+    self.embeddings = nn.Embedding(vocab_size, embedding_dim)
+
+    # Using default dropout_rate=0.0 for the Transformer
+    self.transformer = Transformer(d_model=embedding_dim)
+
+    self.out_dim = embedding_dim * 2 + 1
+    self.fc = nn.Linear(self.out_dim, vocab_size)
+
+    self.vocab_size = vocab_size
+    self.type_mask = type_mask
+    self.softmax = nn.Softmax(dim=1)
+    self.loss_function = loss_function
+    self.embedding_dim = embedding_dim
+    self.batch_per_gpu = batch_per_gpu
+
+                     
+                 
+   """              
     super(LSTM, self).__init__()
     # Input Layer
     self.embeddings = nn.Embedding(vocab_size, embedding_dim)
@@ -83,7 +103,7 @@ class LSTM(nn.Module):
     self.loss_function = loss_function
     self.embedding_dim = embedding_dim
     self.batch_per_gpu = batch_per_gpu
-
+    """
   def build_mask(self, type_chunk, time_step, vocab_size):
     # Frag & Type Matrix
     type_mask = torch.cuda.ByteTensor(self.type_mask)
